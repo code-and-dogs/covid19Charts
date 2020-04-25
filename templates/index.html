@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Corona Charts</title>
+  </head>
+  <body>
+    <h1>Corona Charts</h1>
+    <h2>Select your countries</h2>
+    <form action="/" method="post">
+      <select id="country" name="country">
+        <option value="DEU">Germany</option>
+        <option selected value="FRA">France</option>
+        <option value="ITA">Italy</option>
+        <option value="ESP">Spain</option>
+        <option value="USA">USA</option>
+        <option value="CHN">China</option>
+        <option value="KOR">South Korea</option>
+        <option value="JPN">Japan</option>
+      </select>
+      <select id="country2" name="country2">
+        <option value="DEU">Germany</option>
+        <option value="FRA">France</option>
+        <option selected value="ITA">Italy</option>
+        <option value="ESP">Spain</option>
+        <option value="USA">USA</option>
+        <option value="CHN">China</option>
+        <option value="KOR">South Korea</option>
+        <option value="JPN">Japan</option>
+      </select>
+      <select id="country3" name="country3">
+        <option value="DEU">Germany</option>
+        <option value="FRA">France</option>
+        <option value="ITA">Italy</option>
+        <option value="ESP">Spain</option>
+        <option selected value="USA">USA</option>
+        <option value="CHN">China</option>
+        <option value="KOR">South Korea</option>
+        <option value="JPN">Japan</option>
+      </select>
+      <input type="submit" value="Submit"/>
+    </form>
+
+    <h1>Corona Cases</h1>
+    <div style="position: relative; height: 40vh; width: 80vw">
+      <canvas id="caseChart" width="400" height="400"></canvas>
+    </div>
+
+    <h1>Corona Deaths</h1>
+    <div style="position: relative; height: 40vh; width: 80vw">
+      <canvas id="deathChart" width="400" height="400"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+      var casesCountry1 = {{ casesCountry1|safe }}
+      var casesCountry2 = {{ casesCountry2|safe }}
+      var casesCountry3 = {{ casesCountry3|safe }}
+      var deathsCountry1 = {{ deathsCountry1|safe }}
+      var deathsCountry2 = {{ deathsCountry2|safe }}
+      var deathsCountry3 = {{ deathsCountry3|safe }}
+      var dateLabels = {{ dateLabels|safe }}
+
+      var caseHtml = document.getElementById('caseChart').getContext('2d');
+      var caseChart = new Chart(caseHtml, {
+        type: 'line',
+        data: {
+          labels: dateLabels,
+          datasets: [{
+            label: '{{ country1 }}',
+            borderColor: 'rgb(255,99,132)',
+            data: casesCountry1,
+            fill: false
+          }, {
+            label: '{{ country2 }}',
+            borderColor: 'rgb(139,139,0)',
+            data: casesCountry2,
+            fill: false
+          }, {
+            label: '{{ country3 }}',
+            borderColor: 'rgb(51,153,255)',
+            data: casesCountry3,
+            fill: false
+          }]
+        },
+        options: {
+            maintainAspectRatio: false
+        }
+      });
+
+      var deathHtml = document.getElementById('deathChart').getContext('2d');
+      var deathChart = new Chart(deathHtml, {
+        type: 'line',
+        data: {
+          labels: dateLabels,
+          datasets: [{
+            label: '{{ country1 }}',
+            borderColor: 'rgb(255,99,132)',
+            data: deathsCountry1,
+            fill: false
+          }, {
+            label: '{{ country2 }}',
+            borderColor: 'rgb(139,139,0)',
+            data: deathsCountry2,
+            fill: false
+          }, {
+            label: '{{ country3 }}',
+            borderColor: 'rgb(51,153,255)',
+            data: deathsCountry3,
+            fill: false
+          }]
+        },
+        options: {
+            maintainAspectRatio: false
+        }
+      });
+
+    </script>
+
+  </body>
+</html>
